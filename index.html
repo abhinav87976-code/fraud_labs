@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fraud Lab Live Shield — interactive scam-awareness training and suspicious-message analysis."
+    />
+    <title>FRAUD LAB — Cyber Fraud Awareness Trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <button class="brand" id="brandBtn" aria-label="Go home">
+          FRAUD <span>LAB</span>
+        </button>
+        <nav class="nav" aria-label="Main navigation">
+          <button class="nav-link active" data-page="home">Home</button>
+          <button class="nav-link" data-page="training">Training</button>
+          <button class="nav-link" id="legalNavBtn" data-page="legal">
+            Legal-looking scams
+          </button>
+          <button class="nav-link shield-nav" data-page="shield">
+            Live Shield
+          </button>
+          <button class="nav-link emergency-link" data-page="help">
+            Fraud happened?
+          </button>
+        </nav>
+        <div class="status"><span class="status-dot"></span> AWARENESS LAB</div>
+      </header>
+
+      <section id="homePage" class="page active">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">CYBERSECURITY AWARENESS · INTERACTIVE LAB</p>
+            <h1>Think before<br /><span>you click.</span></h1>
+            <p class="hero-lead">
+              Practice spotting the warning signs behind everyday cyber fraud —
+              then learn exactly what to do if something goes wrong.
+            </p>
+            <div class="hero-actions">
+              <button class="primary-btn" id="startBtn">
+                Start 10-scenario training <span>→</span>
+              </button>
+              <button class="ghost-btn" data-page="help">
+                I’ve been scammed <span>↗</span>
+              </button>
+            </div>
+            <div class="trust-row">
+              <span>01</span>
+              <p>No technical knowledge required.</p>
+              <span>•</span>
+              <p>Built for everyday users.</p>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="panel-top">
+              <span>LIVE MODULE</span><span>10 SCENARIOS</span>
+            </div>
+            <div class="radar">
+              <div class="radar-ring r1"></div>
+              <div class="radar-ring r2"></div>
+              <div class="radar-ring r3"></div>
+              <div class="radar-scan"></div>
+              <div class="radar-core">SAFE<br /><small>MODE</small></div>
+            </div>
+            <div class="signal-list">
+              <div><span>PHISHING</span><b>01</b></div>
+              <div><span>SCAMMING</span><b>02</b></div>
+              <div><span>QR / UPI</span><b>03</b></div>
+              <div><span>IMPERSONATION</span><b>04</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-strip">
+          <article>
+            <span class="feature-num">01</span>
+            <div>
+              <h3>Recognise</h3>
+              <p>See the social-engineering tricks scammers use.</p>
+            </div>
+          </article>
+          <article>
+            <span class="feature-num">02</span>
+            <div>
+              <h3>Decide</h3>
+              <p>Choose what you would do under pressure.</p>
+            </div>
+          </article>
+          <article>
+            <span class="feature-num">03</span>
+            <div>
+              <h3>Respond</h3>
+              <p>Use the emergency guide when a fraud actually happens.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="trainingPage" class="page">
+        <div class="training-head">
+          <div>
+            <div class="training-kicker">
+              <p id="scenarioTag" class="eyebrow">SCENARIO 01</p>
+              <span id="userChip" class="user-chip" hidden></span>
+            </div>
+            <h2 id="scenarioTitle"></h2>
+          </div>
+          <div class="training-meta">
+            <span id="scenarioType" class="type-pill"></span
+            ><span id="scoreBadge">SCORE 0</span>
+          </div>
+        </div>
+        <div class="progress-line"><div id="progressBar"></div></div>
+        <div class="scenario-layout">
+          <aside class="scenario-index">
+            <p>TRAINING MAP</p>
+            <div id="scenarioMap"></div>
+          </aside>
+          <div class="scenario-main">
+            <div class="situation-card">
+              <div class="sender-row">
+                <div id="senderAvatar" class="avatar">?</div>
+                <div>
+                  <strong id="senderName"></strong
+                  ><small id="senderDetail"></small>
+                </div>
+                <span id="channelBadge" class="channel-badge"></span>
+              </div>
+              <div id="scenarioBody" class="message"></div>
+              <div id="fakeLink" class="fake-link" hidden></div>
+            </div>
+            <p class="question" id="scenarioQuestion"></p>
+            <div id="choices" class="choices"></div>
+            <div id="feedback" class="feedback" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="legalPage" class="page">
+        <div class="legal-hero">
+          <div>
+            <p class="eyebrow">AWARENESS MODULE · OFFICIAL-LOOKING FRAUD</p>
+            <h2>Looks legal.<br /><span>Think twice.</span></h2>
+            <p>
+              Scammers borrow the language, logos and urgency of police, courts,
+              banks, government departments and other real institutions. Learn
+              the clues that should make you stop and verify.
+            </p>
+          </div>
+          <div class="legal-hero-chip"><b>15</b><span>SCAM PATTERNS</span></div>
+        </div>
+        <div class="legal-rule">
+          <span>CORE RULE</span
+          ><strong>Official-looking does not mean official.</strong>
+          <p>
+            Never make a payment, share an OTP/PIN/password, install
+            remote-access software or follow a suspicious link just because
+            someone claims legal or government authority.
+          </p>
+        </div>
+        <div class="legal-layout">
+          <aside class="legal-index">
+            <p class="eyebrow">LEGAL-LOOKING SCAMS</p>
+            <div id="legalGrid"></div>
+          </aside>
+          <div id="legalDetail" class="legal-detail"></div>
+        </div>
+      </section>
+
+      <section id="shieldPage" class="page liveshield-page">
+        <div class="ls-topline">
+          <div class="ls-brandmark">
+            <span class="ls-mark">✳</span
+            ><span>FRAUD LAB <i>/</i> LIVE SHIELD</span>
+          </div>
+          <div class="ls-provider-pill is-ai" id="shieldProviderStatus">
+            <span class="ls-status-dot"></span
+            ><span id="shieldProviderText">PROCESS COMPLETED</span>
+          </div>
+        </div>
+        <div class="ls-hero">
+          <div class="ls-hero-copy">
+            <p class="eyebrow">THREAT INTELLIGENCE · MESSAGE ANALYSIS</p>
+            <h2>Think before<br /><span>you tap.</span></h2>
+            <p>
+              Drop in a suspicious SMS, email, payment request, or URL. Live
+              Shield looks for scam signals, explains why they matter, and gives
+              you clear next steps.
+            </p>
+            <div class="ls-hero-actions">
+              <a href="#shieldAnalyzer" class="primary-btn ls-hero-cta"
+                >Analyze a message <span>↘</span></a
+              ><span class="ls-privacy-note"
+                ><span>●</span> Private by design · Client-side Engine</span
+              >
+            </div>
+          </div>
+          <div
+            class="ls-hero-visual"
+            aria-label="Live Shield security status illustration"
+          >
+            <div class="ls-orbit ls-orbit-one"></div>
+            <div class="ls-orbit ls-orbit-two"></div>
+            <div class="ls-shield-graphic"><span>✓</span></div>
+            <div class="ls-float-card ls-float-top">
+              <span class="ls-float-icon">⌁</span>
+              <div>
+                <b>Threat signals</b><small>Context-aware review</small>
+              </div>
+              <span class="ls-mini-dot"></span>
+            </div>
+            <div class="ls-float-card ls-float-bottom">
+              <span class="ls-float-icon ls-float-red">!</span>
+              <div>
+                <b>Safer next steps</b><small>Clarity over panic</small>
+              </div>
+            </div>
+            <div class="ls-hero-orb-label">
+              LIVE SHIELD <span>● ACTIVE UI</span>
+            </div>
+          </div>
+        </div>
+        <div class="ls-metrics" aria-label="Live Shield capabilities">
+          <div class="ls-metric">
+            <span class="ls-metric-icon">⌕</span>
+            <div>
+              <b>Signal detection</b
+              ><small>Urgency, links, OTPs & payment pressure</small>
+            </div>
+          </div>
+          <div class="ls-metric">
+            <span class="ls-metric-icon">◈</span>
+            <div>
+              <b>Plain-language insight</b
+              ><small>Understand what triggered concern</small>
+            </div>
+          </div>
+          <div class="ls-metric">
+            <span class="ls-metric-icon">↗</span>
+            <div><b>Action guidance</b><small>Know what to do next</small></div>
+          </div>
+        </div>
+        <div class="ls-section-heading" id="shieldAnalyzer">
+          <div>
+            <p class="eyebrow">01 / MESSAGE SCANNER</p>
+            <h3>Check before you trust.</h3>
+            <p>
+              Paste the message exactly as received. Remove personal or
+              financial information first.
+            </p>
+          </div>
+          <div class="ls-input-limit">MAX <b>5,000</b> CHARACTERS</div>
+        </div>
+        <div class="shield-layout ls-analysis-layout">
+          <form id="shieldForm" class="shield-form ls-form-card">
+            <div class="ls-card-heading">
+              <div class="ls-card-icon">⌁</div>
+              <div>
+                <b>Analyze suspicious content</b
+                ><small>SMS · Email · URL · Payment request</small>
+              </div>
+              <span class="ls-step-number">01</span>
+            </div>
+            <label for="shieldInput">Message or link</label>
+            <textarea
+              id="shieldInput"
+              maxlength="5000"
+              rows="9"
+              placeholder="Paste a suspicious message here…
+
+Example: Your bank account will be blocked today. Verify your KYC immediately using this link…"
+              required
+            ></textarea>
+            <div class="ls-compose-meta">
+              <span
+                ><span class="ls-safe-dot"></span> Do not include OTPs,
+                passwords, or account numbers</span
+              ><span id="shieldCharCount">0 / 5000</span>
+            </div>
+            <div class="ls-examples-head">
+              <span>QUICK TEST CASES</span><span>CLICK TO LOAD</span>
+            </div>
+            <div class="shield-examples ls-examples">
+              <button type="button" data-shield-example="upi">
+                <span>₹</span> UPI refund trap</button
+              ><button type="button" data-shield-example="urgent">
+                <span>↯</span> Bank warning</button
+              ><button type="button" data-shield-example="courier">
+                <span>▣</span> Courier threat</button
+              ><button type="button" data-shield-example="prize">
+                <span>✧</span> Prize fee</button
+              ><button type="button" data-shield-example="safe">
+                <span>✓</span> Normal message
+              </button>
+            </div>
+            <button
+              class="primary-btn ls-analyze-btn"
+              id="shieldAnalyzeBtn"
+              type="submit"
+            >
+              <span class="ls-btn-icon">⌕</span> Analyze risk
+              <span class="ls-btn-arrow">→</span>
+            </button>
+            <p class="ls-form-footnote">
+              <span>🔒</span> Client-side analysis mode. Avoid sensitive
+              personal data.
+            </p>
+          </form>
+          <div
+            id="shieldResult"
+            class="shield-result ls-result-card"
+            aria-live="polite"
+          >
+            <div class="ls-result-top">
+              <span class="ls-result-kicker">02 / ANALYSIS REPORT</span
+              ><span class="ls-report-status"><span></span> READY</span>
+            </div>
+            <div class="ls-empty-art">
+              <div class="ls-empty-ring"><span>⌕</span></div>
+              <i class="ls-empty-spark ls-spark-one">✦</i
+              ><i class="ls-empty-spark ls-spark-two">✧</i>
+            </div>
+            <p class="eyebrow">YOUR SAFETY SNAPSHOT</p>
+            <h3>Nothing checked yet.</h3>
+            <p>
+              Run a scan to see the risk level, warning signs, and the safest
+              next move.
+            </p>
+            <div class="ls-result-checklist">
+              <div><span>01</span> Identify warning signs</div>
+              <div><span>02</span> Explain the risk clearly</div>
+              <div><span>03</span> Recommend safer actions</div>
+            </div>
+            <small class="shield-result-note"
+              >A risk assessment is guidance, not a guarantee or official fraud
+              determination.</small
+            >
+          </div>
+        </div>
+        <section class="ls-call-section" aria-labelledby="callShieldHeading">
+          <div class="ls-call-copy">
+            <p class="eyebrow">03 / CALL SAFETY</p>
+            <h3>
+              Unknown caller?<br /><span>Slow the conversation down.</span>
+            </h3>
+            <p>
+              Use this interactive preview to demonstrate a suspicious-call
+              warning. A website cannot detect or intercept your phone calls;
+              this is a presentation simulation.
+            </p>
+            <button
+              type="button"
+              class="primary-btn ls-call-btn"
+              id="simulateCallBtn"
+            >
+              Launch call-warning preview <span>↗</span></button
+            ><span class="ls-sim-label"
+              >SIMULATED INTERACTION · NOT A REAL CALL BLOCKER</span
+            >
+          </div>
+          <div class="ls-phone-wrap">
+            <div class="ls-phone">
+              <div class="ls-phone-notch"></div>
+              <div class="ls-phone-screen">
+                <div class="ls-phone-time">9:41 <span>▮▮▰</span></div>
+                <div class="ls-incoming-icon">☎</div>
+                <small>INCOMING CALL</small><b>Unknown caller</b
+                ><span class="ls-phone-number">+91 ••••• ••482</span>
+                <div class="ls-phone-warning">
+                  <span>!</span>
+                  <div>
+                    <b>Pause before trusting</b
+                    ><small
+                      >Never share an OTP or install an app because a caller
+                      asks.</small
+                    >
+                  </div>
+                </div>
+                <div class="ls-phone-buttons"><span>✕</span><span>☎</span></div>
+                <div class="ls-phone-labels">
+                  <span>Decline</span><span>Answer</span>
+                </div>
+              </div>
+            </div>
+            <div class="ls-phone-caption">
+              <span class="ls-red-pulse"></span
+              ><span id="callStateTitle">Call preview ready</span
+              ><small id="callStateText"
+                >Tap the button to view the warning state.</small
+              >
+            </div>
+          </div>
+          <div
+            class="call-alert-preview ls-call-alert"
+            id="callAlertPreview"
+            hidden
+          >
+            <div class="call-alert-top">
+              <span class="call-alert-dot"></span><b>LIVE SHIELD · DEMO ALERT</b
+              ><span id="callAlertLevel">HIGH CAUTION</span>
+            </div>
+            <h4>Pause before answering</h4>
+            <p>
+              This simulated caller is using urgency and asking for a
+              verification code. Never share an OTP or install remote-access
+              apps at a caller's request.
+            </p>
+            <div class="call-alert-actions">
+              <button type="button" id="demoIgnoreBtn">Ignore in demo</button
+              ><button type="button" id="demoAnswerBtn">
+                I answered — show advice</button
+              ><button type="button" id="stopSirenBtn" hidden>
+                Stop siren
+              </button>
+            </div>
+            <small
+              >Simulation only — no real call is intercepted, blocked, or
+              analyzed.</small
+            >
+          </div>
+        </section>
+        <div class="ls-bottom-note">
+          <span class="ls-bottom-icon">i</span>
+          <div>
+            <b>Know the limits. Keep control.</b>
+            <p>
+              Standalone client-side analysis mode active. Content risk
+              assessment runs locally on your browser. Never share OTPs, PINs,
+              passwords, or recovery codes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summaryPage" class="page">
+        <div class="result-hero">
+          <div>
+            <p class="eyebrow">TRAINING COMPLETE</p>
+            <h2>Awareness is your<br /><span>first defence.</span></h2>
+          </div>
+          <div class="score-orb">
+            <strong id="finalScore">0</strong><small>/ 10</small
+            ><span>DECISIONS</span>
+          </div>
+        </div>
+        <div class="result-grid">
+          <div class="result-card">
+            <span>ACCURACY</span><strong id="accuracy">0%</strong>
+          </div>
+          <div class="result-card">
+            <span>SCENARIOS</span><strong>10</strong>
+          </div>
+          <div class="result-card">
+            <span>MISSION</span><strong>COMPLETE</strong>
+          </div>
+        </div>
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="focus-panel">
+          <div>
+            <p class="eyebrow">REMEMBER</p>
+            <h3>Five habits that stop most rushed decisions.</h3>
+          </div>
+          <ul>
+            <li>Pause when a message creates urgency, fear, or pressure.</li>
+            <li>
+              Verify independently — never through the suspicious message
+              itself.
+            </li>
+            <li>Never share OTPs, PINs, passwords, or recovery codes.</li>
+            <li>
+              Inspect links, payment requests, QR codes and attachments
+              carefully.
+            </li>
+            <li>If money is lost, report immediately and preserve evidence.</li>
+          </ul>
+        </div>
+        <div class="summary-actions">
+          <button class="primary-btn" id="certificateBtn">
+            View certificate <span>→</span></button
+          ><button class="ghost-btn" data-page="help">
+            What if fraud already happened? <span>↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="helpPage" class="page">
+        <div class="help-hero">
+          <div>
+            <p class="eyebrow">INCIDENT RESPONSE · INDIA</p>
+            <h2>Fraud happened?<br /><span>Act fast. Stay calm.</span></h2>
+            <p>
+              Use official channels, preserve evidence, and secure affected
+              accounts. This page is an awareness guide — not a substitute for
+              official instructions.
+            </p>
+          </div>
+          <div class="alert-chip">● 1930 · 24×7</div>
+        </div>
+        <div class="urgent-grid">
+          <a class="urgent-card primary-urgent" href="tel:1930"
+            ><span class="card-icon">☎</span>
+            <div>
+              <small>IMMEDIATE FINANCIAL FRAUD</small>
+              <h3>Call 1930</h3>
+              <p>
+                National Cyber Crime Helpline for immediate reporting of
+                financial cyber fraud.
+              </p>
+            </div>
+            <b>→</b></a
+          >
+          <a
+            class="urgent-card"
+            href="https://cybercrime.gov.in/"
+            target="_blank"
+            rel="noopener"
+            ><span class="card-icon">↗</span>
+            <div>
+              <small>GOVERNMENT OF INDIA · I4C</small>
+              <h3>Report Cyber Crime</h3>
+              <p>
+                Open the National Cyber Crime Reporting Portal to register or
+                track a complaint.
+              </p>
+            </div>
+            <b>↗</b></a
+          >
+        </div>
+        <div class="response-layout">
+          <div class="response-main">
+            <div class="section-heading">
+              <span>01</span>
+              <div>
+                <p class="eyebrow">FIRST 10 MINUTES</p>
+                <h3>Do these things first</h3>
+              </div>
+            </div>
+            <div class="action-list">
+              <article>
+                <b>01</b>
+                <div>
+                  <h4>Stop the interaction</h4>
+                  <p>
+                    Do not send more money, codes, passwords or personal
+                    information. End suspicious calls/chats.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <b>02</b>
+                <div>
+                  <h4>Call 1930 if money was lost</h4>
+                  <p>
+                    For financial cyber fraud, report immediately through the
+                    national helpline.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <b>03</b>
+                <div>
+                  <h4>Inform your bank / payment provider</h4>
+                  <p>
+                    Use the official app, website or contact details — not the
+                    scammer's message.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <b>04</b>
+                <div>
+                  <h4>Secure affected accounts</h4>
+                  <p>
+                    Change compromised passwords and review account sessions,
+                    cards and payment settings where relevant.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <b>05</b>
+                <div>
+                  <h4>Preserve evidence</h4>
+                  <p>
+                    Keep transaction IDs, screenshots, phone numbers, email
+                    addresses, URLs, dates and times.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <aside class="evidence-card">
+            <p class="eyebrow">REPORTING CHECKLIST</p>
+            <h3>Keep this evidence ready.</h3>
+            <label><input type="checkbox" /> Transaction / UTR ID</label
+            ><label><input type="checkbox" /> Amount + date + time</label
+            ><label><input type="checkbox" /> Bank / wallet / UPI details</label
+            ><label><input type="checkbox" /> Screenshots / chat history</label
+            ><label><input type="checkbox" /> Scammer phone / email / URL</label
+            ><label><input type="checkbox" /> Any supporting files</label>
+            <div class="mini-note">
+              Accurate details help authorities and financial institutions
+              understand the incident.
+            </div>
+          </aside>
+        </div>
+        <div class="scam-response">
+          <div class="section-heading">
+            <span>02</span>
+            <div>
+              <p class="eyebrow">CHOOSE YOUR SITUATION</p>
+              <h3>What happened?</h3>
+            </div>
+          </div>
+          <div id="helpCards" class="help-cards"></div>
+          <div id="helpDetail" class="help-detail" hidden></div>
+        </div>
+        <div class="official-grid">
+          <div>
+            <p class="eyebrow">OFFICIAL RESOURCES</p>
+            <h3>Go directly to trusted sources.</h3>
+          </div>
+          <div class="official-links">
+            <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener"
+              ><span>National Cyber Crime Reporting Portal</span><b>↗</b></a
+            ><a href="https://cert-in.org.in/" target="_blank" rel="noopener"
+              ><span>CERT-In · Government cybersecurity resources</span
+              ><b>↗</b></a
+            ><a
+              href="https://cybercrime.gov.in/Webform/cyber_suspect.aspx"
+              target="_blank"
+              rel="noopener"
+              ><span>Report suspicious identifiers / websites</span><b>↗</b></a
+            >
+          </div>
+        </div>
+        <p class="source-note">
+          Information links checked against official Government of India /
+          CERT-In pages in September–October 2026. Always follow the latest
+          instructions on the official portals.
+        </p>
+      </section>
+
+      <section id="certificatePage" class="page">
+        <div class="certificate-stage">
+          <div class="certificate-preview" id="certificatePreview">
+            <img
+              src="certificate-base.png"
+              alt="Fraud Lab certificate template"
+            />
+            <div class="cert-overlay-name" id="certNameOverlay">
+              Participant Name
+            </div>
+            <div class="cert-overlay-date" id="certDateOverlay">
+              02 OCT 2026
+            </div>
+          </div>
+          <div class="certificate-side">
+            <p class="eyebrow">CERTIFICATE · PERSONALIZED</p>
+            <h2>Training complete,<br /><span>name attached.</span></h2>
+            <p>
+              Your certificate uses the Fraud Lab template and automatically
+              places the participant name and completion date into the final
+              certificate.
+            </p>
+            <div class="certificate-meta">
+              <div>
+                <span>PARTICIPANT</span
+                ><strong id="certNameSide">Participant Name</strong>
+              </div>
+              <div><span>SCENARIOS</span><strong>10 / 10</strong></div>
+              <div>
+                <span>COMPLETED</span
+                ><strong id="certDateSide">02 OCT 2026</strong>
+              </div>
+            </div>
+            <div class="certificate-actions">
+              <button class="primary-btn" id="printBtn">
+                Print / Save certificate <span>↗</span>
+              </button>
+              <button class="ghost-btn" data-page="home">Back to home</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="name-modal" id="nameModal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-name></div>
+        <div
+          class="name-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="nameTitle"
+        >
+          <div class="modal-icon">⌁</div>
+          <p class="eyebrow">IDENTITY SETUP · STEP 00</p>
+          <h2 id="nameTitle">Before we enter the lab.</h2>
+          <p>
+            Tell us your name. It will be used to personalize your training
+            experience and completion certificate.
+          </p>
+          <label for="participantName">YOUR NAME</label>
+          <input
+            id="participantName"
+            type="text"
+            maxlength="60"
+            autocomplete="name"
+            placeholder="Enter your full name"
+          />
+          <p class="name-error" id="nameError" hidden>
+            Please enter your name to continue.
+          </p>
+          <button class="primary-btn modal-start" id="confirmNameBtn">
+            Enter Fraud Lab <span>→</span>
+          </button>
+          <small
+            >No password, OTP, account or sensitive information is
+            requested.</small
+          >
+        </div>
+      </div>
+
+      <footer>
+        <span>FRAUD LAB · Cyber Fraud Awareness Trainer</span
+        ><span>Educational project · Not a law-enforcement service</span>
+      </footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
